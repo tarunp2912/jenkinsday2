@@ -16,7 +16,7 @@ pipeline{
         
         stage(PHPDeployment){
             steps{
-                sh "sudo cp -r /home/ec2-user/jenkins/workspace/phpweb2/src/* /var/www/html/"
+                sh "sudo cp -r /home/ec2-user/jenkins/workspace/phpweb2/phpcode/* /var/www/html/"
             }
         }
 
