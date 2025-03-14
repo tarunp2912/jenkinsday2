@@ -1,0 +1,29 @@
+pipeline{
+    agent{
+        label "phpdev"
+    }
+    options{
+        // Timeout counter starts BEFORE agent is allocated
+        timeout (time: 60, UNIT: "SECONDS")
+    }
+
+    stages{
+        stage("CodeCheckout"){
+            steps{
+                git branch: "main", url: "https://github.com/tarunp2912/jenkinsday2.git"
+            }
+        }
+        
+        stage(PHPDeployment){
+            steps{
+                sh "sudo cp -r /home/ec2-user/jenkins/workspace/phpweb2/src/* /var/www/html/"
+            }
+        }
+
+        stage("RestartServer"){
+            steps{
+                sh "sudo systemctl restart httpd"
+            }
+        }
+    }
+}
